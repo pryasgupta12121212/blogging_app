@@ -1,13 +1,16 @@
 package com.codewithdurgesh.blog.controllers;
 
-import java.awt.PageAttributes.MediaType;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+import java.io.IOException;
+
+import java.util.List;
+import java.io.InputStream;
+import org.springframework.util.StreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.StreamUtils;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +31,8 @@ import com.codewithdurgesh.blog.service.FileService;
 import com.codewithdurgesh.blog.service.PostService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.Value;
 
 
 @RestController
@@ -41,7 +44,8 @@ public class PostController {
 	@Autowired
 	private PostService postservice;
 	
-	
+	@Value("${project.image}") // Inject property from application.properties or application.yml
+    private String path;
 	
 	
 	
@@ -129,42 +133,36 @@ public ResponseEntity <PostDto> getPostById(@PathVariable Integer postId)
 	}
 	
 	
-	/*
-	 * @PostMapping("/post/image/upload/{postId}") public ResponseEntity<PostDto>
-	 * uploadPostImage(
-	 * 
-	 * @RequestParam("image") MultipartFile image,
-	 * 
-	 * @PathVariable Integer postId ) throws IOException{ // get the post first.
-	 * Agar nhi mila to yhi pe exception throw kar dega. PostDto postDto =
-	 * this.postservice.getPostById(postId);
-	 * 
-	 * // get the fileName by which we have to save in database String fileName =
-	 * fileservice.uploadImage(path, image);
-	 * 
-	 * // ab isko database me save karna h.
-	 * 
-	 * postDto.setImageName(fileName); // ab save kar do update call karke PostDto
-	 * updatedPost = this.postservice.updatePost(postDto, postId); return new
-	 * ResponseEntity<PostDto>(updatedPost, HttpStatus.OK);
-	 * 
-	 * }
-	 * 
-	 * 
-	 * @GetMapping(value="/post/image/{imageName}" , produces =
-	 * MediaType.IMAGE_JPEG_VALUE) public void downloadImage(
-	 * 
-	 * @PathVariable("imageName") String imageName, HttpServletResponse response )
-	 * throws IOException {
-	 * 
-	 * InputStream resource = this.fileservice.getResource(path, imageName);
-	 * response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-	 * StreamUtils.copy(resource, response.getOutputStream()); // kisko , kahan
-	 * bhejna h. }
-	 * 
-	 * 
-	 */
 	
+	  @PostMapping("/post/image/upload/{postId}") public ResponseEntity<PostDto>
+	  uploadPostImage(@RequestParam("image") MultipartFile image,@PathVariable Integer postId ) throws IOException{ // get the post first.
+	// Agar nhi mila to yhi pe exception throw kar dega. PostDto postDto =
+	                    PostDto postDto=this.postservice.getPostById(postId);
+	  
+	 // get the fileName by which we have to save in database String fileName =
+	        String fileName=fileservice.uploadImage(path, image);
+	  
+	  // ab isko database me save karna h.
+			  postDto.setImageName(fileName); // ab save kar do update call karke PostDto
+	 PostDto updatedPost = this.postservice.updatePost(postDto, postId); 
+	 return new ResponseEntity<PostDto>(updatedPost, HttpStatus.OK);
+	   }
 	
-	
+	  
+	  
+	  
+		  
+	  @GetMapping(value="/post/image/{imageName}" , produces=MediaType.IMAGE_JPEG_VALUE) 
+	  public void downloadImage(
+			  
+			  @PathVariable("imageName") String imageName, HttpServletResponse response )
+			  throws IOException {
+			  
+			  InputStream resource = this.fileservice.getResource(path, imageName);
+			  response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+			 StreamUtils.copy(resource, response.getOutputStream()); 
+			  // kisko , kahan bhejna h. }
+			 
+	  }
+	  
 }

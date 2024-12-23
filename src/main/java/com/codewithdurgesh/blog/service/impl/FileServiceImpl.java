@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.codewithdurgesh.blog.service.FileService;
 
 @Service
-
 public class FileServiceImpl implements FileService {
 
 	@Override

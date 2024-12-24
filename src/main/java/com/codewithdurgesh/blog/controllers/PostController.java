@@ -134,8 +134,8 @@ public ResponseEntity <PostDto> getPostById(@PathVariable Integer postId)
 	
 	
 	
-	  @PostMapping("/post/image/upload/{postId}") public ResponseEntity<PostDto>
-	  uploadPostImage(@RequestParam("image") MultipartFile image,@PathVariable Integer postId ) throws IOException{ // get the post first.
+	  @PostMapping("/post/image/upload/{postId}")
+	  public ResponseEntity<PostDto>uploadPostImage(@RequestParam("image") MultipartFile image,@PathVariable Integer postId ) throws IOException{ // get the post first.
 	// Agar nhi mila to yhi pe exception throw kar dega. PostDto postDto =
 	                    PostDto postDto=this.postservice.getPostById(postId);
 	  

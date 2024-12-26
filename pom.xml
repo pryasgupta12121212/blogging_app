@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.codewithdurgesh.blog</groupId>
-	<artifactId>blog_application</artifactId>
+	<artifactId>crudapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>blog_application</name>
 	<description>this is backened api for blogging</description>
@@ -101,20 +101,22 @@
 		<dependency>
     <groupId>org.projectlombok</groupId>
     <artifactId>lombok</artifactId>
-    <version>1.18.28</version> <!-- Use the latest version -->
+
     <scope>provided</scope>
 </dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.smart</groupId>
-			<artifactId>smartcontact</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -132,6 +134,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>crudapp</finalName>
 	</build>
 
 </project>

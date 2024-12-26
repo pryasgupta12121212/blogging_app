@@ -1,20 +1,37 @@
 package com.codewithdurgesh.blog.payloads;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class ApiResponse {
 
-	private String messag;
+	private String message;
 	private boolean success;
-	
-	
-	
+
+	// Default constructor
+	public ApiResponse() {
+	}
+
+	// Parameterized constructor
+	public ApiResponse(String message, boolean success) {
+		this.message = message;
+		this.success = success;
+	}
+
+	// Getter for message
+	public String getMessage() {
+		return message;
+	}
+
+	// Setter for message
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	// Getter for success
+	public boolean isSuccess() {
+		return success;
+	}
+
+	// Setter for success
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
 }

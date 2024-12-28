@@ -134,7 +134,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>crudapp</finalName>
+
 	</build>
 
 </project>
